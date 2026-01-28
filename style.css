@@ -1,0 +1,105 @@
+/* Cấu hình Font chữ chuẩn tiếng Việt */
+body {
+    font-family: 'Quicksand', sans-serif;
+    scroll-behavior: smooth;
+    color: #431407;
+}
+
+/* Font tiêu đề đặc biệt */
+.font-serif {
+    font-family: 'Merriweather', serif !important;
+}
+
+/* Hiệu ứng thẻ sản phẩm */
+.product-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+.animate-in {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+.animate-bounce-custom {
+    animation: bounce 0.4s ease-in-out;
+}
+
+/* Thanh cuộn đẹp */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #fff; }
+::-webkit-scrollbar-thumb { background: #d97706; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #b45309; }
+
+/* Thanh cuộn nhỏ trong Modal */
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: #f9fafb; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+/* Hiệu ứng zoom nhẹ cho hũ nến */
+.product-card img {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover img {
+    transform: scale(1.1);
+}
+
+/* Hiệu ứng hiện dần cho danh sách sản phẩm */
+.grid > div {
+    animation: fadeInUp 0.6s ease backwards;
+}
+
+/* Tạo độ trễ để các sản phẩm hiện ra lần lượt */
+.grid > div:nth-child(1) { animation-delay: 0.1s; }
+.grid > div:nth-child(2) { animation-delay: 0.2s; }
+.grid > div:nth-child(3) { animation-delay: 0.3s; }
+.grid > div:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+button:hover {
+    filter: brightness(1.1);
+    transform: scale(1.02);
+    transition: all 0.2s;
+}
+
+#btnSubmit:active {
+    transform: scale(0.95);
+}
+@keyframes popIn {
+    0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-pop {
+    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Hiệu ứng mờ dần cho nền đen */
+#checkoutModal.flex {
+    animation: fadeInBg 0.3s ease-out;
+}
+
+@keyframes fadeInBg {
+    from { background-color: rgba(0,0,0,0); backdrop-filter: blur(0px); }
+    to { background-color: rgba(0,0,0,0.6); backdrop-filter: blur(8px); }
+}

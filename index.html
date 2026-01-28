@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A4 Elite Candle | Startup THPT Trần Hưng Đạo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.min.css"/>
+</head>
+<body class="bg-gradient-to-br from-amber-50 to-orange-50 min-h-screen flex flex-col font-sans">
+
+    <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="app.showPage('home')">
+                <img src="logo.png" alt="Logo" class="w-10 h-10 rounded-full border-2 border-white shadow-md">
+                <div>
+                    <div class="text-[10px] text-gray-500 font-bold uppercase tracking-widest text-left leading-tight">THPT Trần Hưng Đạo</div>
+                    <div class="text-lg font-serif italic text-amber-900 font-bold leading-tight">A4 Elite Candle</div>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-6 font-medium text-gray-600 items-center">
+    <a href="#" onclick="app.showPage('home')" class="hover:text-amber-800 transition">Trang Chủ</a>
+    <a href="#" onclick="app.showPage('products')" class="hover:text-amber-800 transition">Sản Phẩm</a>
+    <a href="#" onclick="app.showPage('contact')" class="hover:text-amber-800 transition">Liên Hệ</a>
+    <a href="#" onclick="app.showPage('history')" class="hover:text-amber-800 transition">Lịch sử mua hàng</a>
+    <span id="userInfo" class="text-amber-700 text-sm border-l border-amber-200 pl-4 hidden font-bold"></span>
+</nav>
+            <div class="flex items-center space-x-4">
+                <button onclick="app.showPage('login')" id="loginBtn" class="text-sm font-bold text-amber-800 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200">Đăng nhập</button>
+                <button class="relative p-2" onclick="app.showPage('cart')">
+                    <i data-lucide="shopping-cart" class="text-amber-900 w-6 h-6"></i>
+                    <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="app" class="flex-grow"></main>
+
+    <footer class="bg-amber-950 text-amber-100/80 py-12 text-center mt-12">
+        <h2 class="text-2xl font-serif italic mb-2 text-white">A4 Elite Candle</h2>
+        <p class="text-sm opacity-60">© 2026 Dự án Khởi nghiệp Học sinh.</p>
+        <button onclick="app.showPage('admin-login')" class="mt-4 text-[10px] opacity-20 hover:opacity-100 transition underline">Quản trị viên</button>
+    </footer>
+
+    <div id="checkoutModal" class="fixed inset-0 bg-black/60 backdrop-blur-md hidden items-center justify-center z-[100] p-4 transition-all duration-300">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 md:p-8 relative max-h-[90vh] overflow-y-auto transform transition-all border border-amber-100 animate-pop">
+        
+        <button onclick="app.closeModal()" class="absolute top-5 right-5 text-gray-400 hover:text-amber-800 hover:rotate-90 transition-all duration-300">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+
+        <h3 class="text-2xl font-serif italic text-amber-900 mb-6 text-center border-b border-amber-50 pb-4 font-bold">Thông Tin Giao Hàng</h3>
+        
+        <form onsubmit="app.submitOrder(event)" class="space-y-5">
+            <div id="orderSummary" class="bg-amber-50/50 rounded-2xl p-4 border border-amber-100 shadow-inner"></div>
+            
+            <div class="space-y-4">
+                <input type="text" id="custName" required class="w-full px-5 py-3.5 border border-gray-100 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 shadow-sm bg-gray-50/50 focus:bg-white transition-all" placeholder="Họ và tên khách hàng">
+                
+                <input type="tel" id="custPhone" required class="w-full px-5 py-3.5 border border-gray-100 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 shadow-sm bg-gray-50/50 focus:bg-white transition-all" placeholder="Số điện thoại liên lạc">
+                
+                <textarea id="custAddress" required class="w-full px-5 py-3.5 border border-gray-100 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 shadow-sm bg-gray-50/50 focus:bg-white transition-all" rows="2" placeholder="Địa chỉ nhận nến..."></textarea>
+            </div>
+
+            <button type="submit" id="btnSubmit" class="w-full bg-amber-800 text-white py-4 rounded-2xl font-bold hover:bg-amber-900 active:scale-95 transition-all flex justify-center items-center gap-3 shadow-lg shadow-amber-900/20">
+                <span>Xác Nhận Đặt Hàng</span>
+                <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+        </form>
+    </div>
+</div>
+    <div id="successModal" class="fixed inset-0 bg-black/60 backdrop-blur-md hidden items-center justify-center z-[110] p-4">
+        <div class="bg-white rounded-3xl p-8 text-center max-w-sm w-full shadow-2xl">
+            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="check" class="text-green-600 w-10 h-10"></i></div>
+            <h3 class="text-2xl font-bold mb-2">Thành Công!</h3>
+            <p class="text-gray-500 mb-6 text-sm">Cảm ơn Thuật và nhóm đã tin dùng hệ thống! Đơn hàng đã được gửi qua Telegram.</p>
+            <button onclick="app.closeSuccessModal()" class="w-full bg-gray-900 text-white py-3 rounded-xl font-bold">Về Trang Chủ</button>
+        </div>
+    </div>
+
+    <script type="module">
+        
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+       import { getFirestore, doc, setDoc, getDoc, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyBAfLeVFpLfLNcx8Q0mXVB70LG4Khj2gK4",
+  authDomain: "a4-elite-candle.firebaseapp.com",
+  projectId: "a4-elite-candle",
+  storageBucket: "a4-elite-candle.firebasestorage.app",
+  messagingSenderId: "303526027509",
+  appId: "1:303526027509:web:2dadffaa20555aad5525bc",
+  measurementId: "G-0TRLWBNEYQ"
+};
+        const fbApp = initializeApp(firebaseConfig);
+window.fb = { 
+    auth: getAuth(fbApp), 
+    onAuthStateChanged: onAuthStateChanged,
+    db: getFirestore(fbApp),
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut,
+    doc,
+    setDoc,
+    getDoc,
+    collection,
+    getDocs,
+    query,
+    where
+}; // Nhớ phải có dấu chấm phẩy ở đây
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
